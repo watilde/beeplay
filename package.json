@@ -1,0 +1,23 @@
+{
+  "name": "beeplay",
+  "version": "0.0.1",
+  "description": "Play the JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "test/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/watilde/beeplay.git"
+  },
+  "author": "Daijiro Wachi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/watilde/beeplay/issues"
+  },
+  "homepage": "https://github.com/watilde/beeplay",
+  "dependencies": {
+    "baudio": "^2.0.0",
+    "underscore": "^1.6.0"
+  }
+}
