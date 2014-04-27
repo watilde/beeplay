@@ -1,7 +1,7 @@
-var beePlay = function (option) {
+var beeplay = function (option) {
   'use strict';
 
-  var beePlay = function (option) {
+  var beeplay = function (option) {
     option = (typeof option === 'object') ? option : {};
     this.bpm = option.bpm || 120;
     this.sampleRate = option.sampleRate || 44100; // 44.1 kHz
@@ -19,7 +19,7 @@ var beePlay = function (option) {
 
 
   // Parse note number
-  beePlay.prototype.pn = function (note, length) {
+  beeplay.prototype.pn = function (note, length) {
     var len = Math.round(length * 64);
     var memo = [];
     var number = this.nn(note);
@@ -29,7 +29,7 @@ var beePlay = function (option) {
   };
 
   // Get note number
-  beePlay.prototype.nn = function (nn) {
+  beeplay.prototype.nn = function (nn) {
     var keys = ['c', 'c#', 'd', 'd#', 'e',
       'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
     var note = nn.substring(0, 1).toLowerCase();
@@ -37,13 +37,13 @@ var beePlay = function (option) {
     return keys.indexOf(note) + 12 * number;
   };
 
-  beePlay.prototype.sin = function (x, t) {
+  beeplay.prototype.sin = function (x, t) {
     var y = Math.PI * x * t;
     return Math.sin(y);
   };
 
   // @TODO Fixes make sin wave from note & length
-  beePlay.prototype.play = function (note, length) {
+  beeplay.prototype.play = function (note, length) {
     var sampleRate = this.sampleRate;
     var context = this.context;
     context.sampleRate = sampleRate;
@@ -67,5 +67,5 @@ var beePlay = function (option) {
     return this;
   };
 
-  return new beePlay(option);
+  return new beeplay(option);
 };
