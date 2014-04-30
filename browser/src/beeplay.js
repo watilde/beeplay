@@ -19,16 +19,26 @@ var beeplay = function (option) {
   };
 
   beeplay.prototype.nn = function (nn) {
-      var keys = ['c', 'c#', 'd', 'd#', 'e',
-        'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
-      var note = nn.substring(0, 1).toLowerCase();
-      var number = Number(nn.substring(1)) + 1;
-      return keys.indexOf(note) + 12 * number;
+    var keys = ['c', 'c#', 'd', 'd#', 'e',
+      'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
+    var note = nn.substring(0, 1).toLowerCase();
+    var number = Number(nn.substring(1)) + 1;
+    return keys.indexOf(note) + 12 * number;
   };
 
   beeplay.prototype.pn = function (note) {
     var nn = this.nn(note);
-    return (nn - 43) * 15;
+    var freq = 440;
+    var diff = nn - 69;
+    var i = Math.abs(diff);
+    if (nn === 69) {
+      return freq;
+    } else if (diff > 0) {
+      while(i--) freq = freq * Math.pow(2, 1 / 12);
+    } else {
+      while(i--) freq = freq / Math.pow(2, 1 / 12);
+    }
+    return freq;
   };
 
   beeplay.prototype.play = function (note, length) {
@@ -40,7 +50,7 @@ var beeplay = function (option) {
     var buf = context.createBuffer(1, sampleRate, sampleRate);
     var data = buf.getChannelData(0);
     var nn = this.pn(note);
-    for(var i=0; i < 60 / bpm * length * sampleRate; i++) {
+    for(var i = 0; i < 60 / bpm * length * sampleRate; i++) {
       data[i]=Math.sin( (2 * Math.PI) * nn * (i / sampleRate) );
     }
 
