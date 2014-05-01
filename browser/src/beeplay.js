@@ -33,6 +33,7 @@ var beeplay = function (option) {
   };
 
   beeplay.prototype.pn = function (note) {
+    if (note === null) { return 0; }
     var nn = this.nn(note);
     var freq = 440;
     var diff = nn - 69;
