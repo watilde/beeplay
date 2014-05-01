@@ -42,7 +42,7 @@ var beeplay = function (option) {
   };
 
   Klass.prototype.pn = function (note) {
-    if (note === null) { return 0; }
+    if (note === null) { return -1; }
     var nn = this.nn(note);
     var freq = 440;
     var diff = nn - 69;
@@ -67,6 +67,7 @@ var beeplay = function (option) {
       var buf = context.createBuffer(1, sampleRate, sampleRate);
       var data = buf.getChannelData(0);
       var nn = that.pn(note);
+      if (nn === -1) { return; }
       for(var i = 0; i < 60 / bpm * length * sampleRate; i++) {
         data[i]=Math.sin( (2 * Math.PI) * nn * (i / sampleRate) );
       }
