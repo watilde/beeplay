@@ -21,8 +21,14 @@ var beeplay = function (option) {
   beeplay.prototype.nn = function (nn) {
     var keys = ['c', 'c#', 'd', 'd#', 'e',
       'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
-    var note = nn.substring(0, 1).toLowerCase();
-    var number = Number(nn.substring(1)) + 1;
+    var note, number;
+    if(nn.indexOf('#') !== -1) {
+      note = nn.substring(0, 2).toLowerCase();
+      number = Number(nn.substring(2)) + 1;
+    } else {
+      note = nn.substring(0, 1).toLowerCase();
+      number = Number(nn.substring(1)) + 1;
+    }
     return keys.indexOf(note) + 12 * number;
   };
 
