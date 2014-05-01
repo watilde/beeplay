@@ -4,30 +4,23 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-open');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    copy: {
-      main: {
-        src: 'src/*',
-        dest: 'dest/'
-      }
-    },
     connect: {
       dest: {
         options: {
           hostname: '0.0.0.0',
           port: 5455,
-          base: 'dest/',
+          base: './',
           livereload: true
         }
       }
     },
     open: {
       dest: {
-        path: 'http://localhost:5455'
+        path: 'http://localhost:5455/dest'
       }
     },
     jshint: {
@@ -50,7 +43,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', ['jshint', 'copy']);
+  grunt.registerTask('build', ['jshint']);
   grunt.registerTask('server', ['connect', 'open']);
 
   // Main task
