@@ -1,7 +1,7 @@
 var beeplay = function (option) {
   'use strict';
 
-  var beeplay = function (option) {
+  var Klass = function (option) {
     option = (typeof option === 'object') ? option : {};
     this.bpm = option.bpm || 120;
     this.sampleRate = option.sampleRate || 44100;
@@ -10,15 +10,24 @@ var beeplay = function (option) {
     try {
       // Fix up for prefixing
       var AudioContext = window.AudioContext || window.webkitAudioContext;
-      this.context = new AudioContext();
+      this.context = window.__audioContext__ || new AudioContext();
+      this.context.sampleRate = this.sampleRate;
+      window.__audioContext__ = this.context;
     } catch(e) {
-      alert('Web Audio API is not supported in this browser');
+      console.error(e.message);
     }
 
     return this;
   };
 
-  beeplay.prototype.nn = function (nn) {
+  Klass.prototype.isArray = function (vArg) {
+    if(!Array.isArray) {
+      return Object.prototype.toString.call(vArg) === '[object Array]';
+    }
+    return Array.isArray(vArg);
+  };
+
+  Klass.prototype.nn = function (nn) {
     var keys = ['c', 'c#', 'd', 'd#', 'e',
       'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'];
     var note, number;
@@ -32,7 +41,7 @@ var beeplay = function (option) {
     return keys.indexOf(note) + 12 * number;
   };
 
-  beeplay.prototype.pn = function (note) {
+  Klass.prototype.pn = function (note) {
     if (note === null) { return 0; }
     var nn = this.nn(note);
     var freq = 440;
@@ -48,30 +57,31 @@ var beeplay = function (option) {
     return freq;
   };
 
-  beeplay.prototype.play = function (note, length) {
-    var sampleRate = this.sampleRate;
+  Klass.prototype.play = function (notes, length) {
     var context = this.context;
+    var sampleRate = this.sampleRate;
     var bpm = this.bpm;
-    context.sampleRate = sampleRate;
+    var that = this;
+    notes = this.isArray(notes) ? notes : [notes];
+    notes.forEach(function(note) {
+      var buf = context.createBuffer(1, sampleRate, sampleRate);
+      var data = buf.getChannelData(0);
+      var nn = that.pn(note);
+      for(var i = 0; i < 60 / bpm * length * sampleRate; i++) {
+        data[i]=Math.sin( (2 * Math.PI) * nn * (i / sampleRate) );
+      }
+      var src = context.createBufferSource();
+      src.buffer = buf;
+      src.connect(context.destination);
 
-    var buf = context.createBuffer(1, sampleRate, sampleRate);
-    var data = buf.getChannelData(0);
-    var nn = this.pn(note);
-    for(var i = 0; i < 60 / bpm * length * sampleRate; i++) {
-      data[i]=Math.sin( (2 * Math.PI) * nn * (i / sampleRate) );
-    }
-
-    var src = context.createBufferSource();
-    src.buffer = buf;
-    src.connect(context.destination);
-
-    setTimeout(function () {
-      src.noteOn(0);
-    }, this.time);
+      setTimeout(function () {
+        src.noteOn(0);
+      }, that.time);
+    });
     this.time += 60 / bpm * length * 1000;
 
     return this;
   };
 
-  return new beeplay(option);
+  return new Klass(option);
 };

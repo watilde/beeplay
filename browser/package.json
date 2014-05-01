@@ -11,8 +11,8 @@
   "devDependencies": {
     "grunt": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-jshint": "^0.10.0",
     "grunt-open": "^0.2.3"
   }
 }
