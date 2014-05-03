@@ -1,0 +1,19 @@
+{
+  "name": "beeplay",
+  "version": "0.0.0",
+  "homepage": "https://github.com/watilde/beeplay",
+  "authors": [
+    "Daijiro Wachi <daijiro.wachi@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.1.1"
+  }
+}
