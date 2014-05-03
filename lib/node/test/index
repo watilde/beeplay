@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+var play = require('../lib/index');
+var notes = require('./kimigayo');
+play(notes, {bpm: 120});
