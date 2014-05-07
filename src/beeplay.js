@@ -74,12 +74,9 @@ var beeplay = function (option) {
       var src = context.createBufferSource();
       src.buffer = buf;
       src.connect(context.destination);
-
-      setTimeout(function () {
-        src.noteOn(0);
-      }, that.time);
+      src.noteOn(that.time);
     });
-    this.time += 60 / bpm * length * 1000;
+    this.time += 60 / bpm * length;
 
     return this;
   };

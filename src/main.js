@@ -83,7 +83,7 @@ beeplay({bpm: 120})
 // Back
 // A
 beeplay({bpm: 120})
-  .play(null, 1.69)
+  .play(null, 2)
   .play(null, 8)
   .play('E3', 1/2).play(['B3', 'E4'], 1/2)
   .play('F#3', 1/2).play(['C#4', 'F#4'], 1/2)
