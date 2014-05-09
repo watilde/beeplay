@@ -1,5 +1,5 @@
-canvas {
-  border: 1px solid #ebebeb;
+.main {
+  border: 1px solid #ededed;
   border-radius: 10px;
-  width: 80%;
+  overflow: scroll;
 }

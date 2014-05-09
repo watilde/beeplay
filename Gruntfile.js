@@ -1,13 +1,21 @@
 module.exports = function(grunt) {
   'use strict';
-
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-open');
-
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    'gh-pages': {
+      options: {
+        base: 'dest',
+      },
+      src: ['**']
+    },
+    copy: {
+      dest: {
+        expand: true,
+        flatten: true,
+        src: ['src/*.js'],
+        dest: 'dest/js',
+      },
+    },
     connect: {
       dest: {
         options: {
@@ -43,11 +51,14 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', ['jshint']);
+  grunt.registerTask('build', ['jshint', 'copy']);
   grunt.registerTask('server', ['connect', 'open']);
+  grunt.registerTask('deploy', ['build', 'gh-pages']);
 
   // Main task
   grunt.registerTask('default', [
     'build', 'server', 'watch'
   ]);
+
+  require('load-grunt-tasks')(grunt);
 };
