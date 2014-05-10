@@ -5,6 +5,7 @@
     <title>beeplay</title>
     <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/cover.css">
+    <link rel="stylesheet" type="text/css" href="css/prettify.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
   </head>
   <body>
@@ -21,13 +22,22 @@
             </div>
           </div>
           <div class="inner cover">
-            <h1 class="cover-heading">Create a song with JavaScript</h1>
-            <p class="lead">
-            <canvas class="main"></canvas>
-            </p>
-            <p class="lead">
-            <a href="#" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-play"></span></a>
-            </p>
+            <h1 class="cover-heading">Write a song by JavaScript</h1>
+            <pre id="code" class="prettyprint">
+beeplay({bpm: 120})
+  .play(null, 2)
+  .play('D#4', 1/4).play('E4', 1/4).play('F#4', 1/2)
+  .play('B4', 1/2).play('D#4', 1/4).play('E4', 1/4)
+  .play('F#4', 1/4).play('B4', 1/4).play('C#5', 1/4).play('D#5', 1/4)
+  .play('C#5', 1/4).play('A#4', 1/4).play('B4', 1/2)
+  .play('F#4', 1/2).play('D#4', 1/4).play('E4', 1/4)
+  .play('F#4', 1/2).play('B4', 1/2)
+  .play('C#5', 1/4).play('A#4', 1/4).play('B4', 1/4).play('C#5', 1/4)
+  .play('E5', 1/4).play('D#5', 1/4).play('E5', 1/4).play('C#5', 1/4);</pre>
+            </pre>
+            <button id="play" class="btn btn-lg btn-primary">
+              <span class="glyphicon glyphicon-play"></span>
+            </button>
           </div>
           <div class="mastfoot">
             <div class="inner">
@@ -39,6 +49,7 @@
     </div>
     <script src="components/jquery/dist/jquery.min.js"></script>
     <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
     <script src="js/beeplay.js"></script>
     <script src="js/nyan.js"></script>
     <script src="js/main.js"></script>

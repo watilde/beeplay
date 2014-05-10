@@ -1,5 +1,7 @@
-.main {
-  border: 1px solid #ededed;
-  border-radius: 10px;
-  overflow: scroll;
+#code {
+  text-align: left;
+}
+
+#play {
+  position: absolute;
 }
