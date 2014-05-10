@@ -35,6 +35,7 @@ module.exports = function(grunt) {
       options: {
         browser: true,
         sub: true,
+        validthis: true
       },
       all: ['Gruntfile.js', 'src/*.js']
     },
