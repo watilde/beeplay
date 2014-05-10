@@ -1,7 +1,7 @@
 function nyan(option) {
   var bpm = option.bpm || 120;
   // Intro
-  beeplay({bpm: 120})
+  beeplay({bpm: bpm})
     .play(null, 2)
     .play('D#4', 1/4).play('E4', 1/4).play('F#4', 1/2)
     .play('B4', 1/2).play('D#4', 1/4).play('E4', 1/4)
@@ -13,7 +13,7 @@ function nyan(option) {
     .play('E5', 1/4).play('D#5', 1/4).play('E5', 1/4).play('C#5', 1/4);
 
   // Amero 1st
-  beeplay({bpm: 120})
+  beeplay({bpm: bpm})
     .play(null, 2)
     .play(null, 8)
     .play('F#5', 1/2).play('G#5', 1/2)
@@ -34,7 +34,7 @@ function nyan(option) {
     .play('B4', 1/2).play('C#5', 1/2);
 
   // Amero 2nd
-  beeplay({bpm: 120})
+  beeplay({bpm: bpm})
     .play(null, 2)
     .play(null, 8)
     .play(null, 16)
@@ -56,7 +56,7 @@ function nyan(option) {
     .play('B4', 1/2).play('B4', 1/2);
 
   // Bmero 1st
-  beeplay({bpm: 120})
+  beeplay({bpm: bpm})
     .play(null, 2)
     .play(null, 8)
     .play(null, 16)
@@ -79,7 +79,7 @@ function nyan(option) {
     .play('B4', 1/2).play('A#4', 1/2);
 
   // Bmero 2nd
-  beeplay({bpm: 120})
+  beeplay({bpm: bpm})
     .play(null, 2)
     .play(null, 8)
     .play(null, 16)
@@ -104,7 +104,7 @@ function nyan(option) {
 
   // Back
   // A
-  beeplay({bpm: 120})
+  beeplay({bpm: bpm})
     .play(null, 2)
     .play(null, 8)
     .play('E3', 1/2).play(['B3', 'E4'], 1/2)
