@@ -8,7 +8,7 @@ $(function(){
       singleton = false;
       $('#play').fadeOut('fast', function () {
         $('#code').animate({opacity: '1'}, 'slow', function () {
-          nyan({bpm: 120});
+          nyan({bpm: 132});
         });
       });
     }
