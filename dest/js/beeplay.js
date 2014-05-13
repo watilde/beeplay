@@ -68,7 +68,7 @@ var beeplay = function (option) {
       var src = context.createBufferSource();
       src.buffer = buf;
       src.connect(context.destination);
-      src.noteOn(that.time);
+      src.start(that.time);
     });
     this.time += 60 / bpm * length;
     return this.time;
