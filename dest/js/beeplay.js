@@ -9,7 +9,11 @@ var beeplay = function (option) {
 
     try {
       // Fix up for prefixing
-      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      var AudioContext = window.AudioContext ||
+        window.webkitAudioContext ||
+        window.mozAudioContext ||
+        window.oAudioContext ||
+        window.msAudioContext;
       this.context = window.__audioContext__ || new AudioContext();
       this.context.sampleRate = this.sampleRate;
       window.__audioContext__ = this.context;
