@@ -1,12 +1,12 @@
 module.exports = function(grunt) {
   'use strict';
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    'gh-pages': {
-      options: {
-        base: 'dest',
-      },
-      src: ['**']
+    browserify: {
+      all: {
+        files: {
+          'dest/js/beeplay.js': 'src/**/*.js',
+        }
+      }
     },
     copy: {
       dest: {
@@ -49,10 +49,16 @@ module.exports = function(grunt) {
         files: ['src/*.js'],
         tasks: ['build'],
       }
+    },
+    'gh-pages': {
+      options: {
+        base: 'dest',
+      },
+      src: ['**']
     }
   });
 
-  grunt.registerTask('build', ['jshint', 'copy']);
+  grunt.registerTask('build', ['browserify']);
   grunt.registerTask('server', ['connect', 'open']);
   grunt.registerTask('deploy', ['build', 'gh-pages']);
 
