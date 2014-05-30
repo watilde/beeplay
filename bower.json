@@ -15,6 +15,7 @@
     "test",
     "tests"
   ],
+  "keywords": "beeplay",
   "devDependencies": {
     "bootstrap": "~3.1.1"
   }
