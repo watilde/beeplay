@@ -1,4 +1,4 @@
 {
-  "directory": "dest/components",
+  "directory": "docs/components",
   "json": "bower.json"
 }

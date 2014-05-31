@@ -1,10 +1,17 @@
 module.exports = function(grunt) {
   'use strict';
   grunt.initConfig({
+    uglify: {
+      all: {
+        files: {
+          'dist/beeplay.min.js': ['dist/beeplay.js']
+        }
+      }
+    },
     browserify: {
       all: {
         files: {
-          'dest/js/beeplay.js': 'src/**/*.js',
+          'dist/beeplay.js': 'src/**/*.js',
         }
       }
     },
@@ -12,8 +19,8 @@ module.exports = function(grunt) {
       dest: {
         expand: true,
         flatten: true,
-        src: ['src/*.js'],
-        dest: 'dest/js',
+        src: ['dist/beeplay.min.js'],
+        dest: 'docs/js/',
       },
     },
     connect: {
@@ -21,14 +28,14 @@ module.exports = function(grunt) {
         options: {
           hostname: '0.0.0.0',
           port: 5455,
-          base: './',
+          base: './docs/',
           livereload: true
         }
       }
     },
     open: {
       dest: {
-        path: 'http://localhost:5455/dest'
+        path: 'http://localhost:5455/'
       }
     },
     jshint: {
@@ -58,7 +65,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('build', ['browserify']);
+  grunt.registerTask('build', ['browserify', 'uglify', 'copy']);
   grunt.registerTask('server', ['connect', 'open']);
   grunt.registerTask('deploy', ['build', 'gh-pages']);
 
