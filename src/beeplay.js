@@ -5,8 +5,8 @@ window.beeplay = function (option) {
   beeplay.prototype.isArray = require('./modules/isArray');
   beeplay.prototype.nn      = require('./modules/nn');
   beeplay.prototype.pn      = require('./modules/pn');
-  beeplay.prototype.noteOn  = require('./modules/noteOn');
   beeplay.prototype.play    = require('./modules/play');
+  beeplay.prototype.start   = require('./modules/start');
 
   return new beeplay(option);
 };

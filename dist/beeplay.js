@@ -6,13 +6,13 @@ window.beeplay = function (option) {
   beeplay.prototype.isArray = require('./modules/isArray');
   beeplay.prototype.nn      = require('./modules/nn');
   beeplay.prototype.pn      = require('./modules/pn');
-  beeplay.prototype.noteOn  = require('./modules/noteOn');
   beeplay.prototype.play    = require('./modules/play');
+  beeplay.prototype.start   = require('./modules/start');
 
   return new beeplay(option);
 };
 
-},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/noteOn":5,"./modules/play":6,"./modules/pn":7}],2:[function(require,module,exports){
+},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/play":5,"./modules/pn":6,"./modules/start":7}],2:[function(require,module,exports){
 module.exports = function (vArg) {
   if(!Array.isArray) {
     return Object.prototype.toString.call(vArg) === '[object Array]';
@@ -58,6 +58,31 @@ module.exports = function (nn) {
 
 },{}],5:[function(require,module,exports){
 module.exports = function (notes, length) {
+  notes = this.isArray(notes) ? notes : [notes];
+  this.start(notes, length);
+  return this;
+};
+
+},{}],6:[function(require,module,exports){
+// Parse Note Number to freq
+module.exports = function (note) {
+    if (note === null) { return -1; }
+    var nn = this.nn(note);
+    var freq = this.sampleRate / 100;
+    var diff = nn - 69;
+    var i = Math.abs(diff);
+    if (nn === 69) {
+      return freq;
+    } else if (diff > 0) {
+      while(i--) freq = freq * Math.pow(2, 1 / 12);
+    } else {
+      while(i--) freq = freq / Math.pow(2, 1 / 12);
+    }
+    return freq;
+  };
+
+},{}],7:[function(require,module,exports){
+module.exports = function (notes, length) {
   var context = this.context;
   var sampleRate = this.sampleRate;
   var bpm = this.bpm;
@@ -78,30 +103,5 @@ module.exports = function (notes, length) {
   this.time += 60 / bpm * length;
   return this.time;
 };
-
-},{}],6:[function(require,module,exports){
-module.exports = function (notes, length) {
-  notes = this.isArray(notes) ? notes : [notes];
-  this.noteOn(notes, length);
-  return this;
-};
-
-},{}],7:[function(require,module,exports){
-// Parse Note Number to freq
-module.exports = function (note) {
-    if (note === null) { return -1; }
-    var nn = this.nn(note);
-    var freq = this.sampleRate / 100;
-    var diff = nn - 69;
-    var i = Math.abs(diff);
-    if (nn === 69) {
-      return freq;
-    } else if (diff > 0) {
-      while(i--) freq = freq * Math.pow(2, 1 / 12);
-    } else {
-      while(i--) freq = freq / Math.pow(2, 1 / 12);
-    }
-    return freq;
-  };
 
 },{}]},{},[1,2,3,4,5,6,7])
