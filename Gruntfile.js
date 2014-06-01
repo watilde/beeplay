@@ -53,7 +53,7 @@ module.exports = function(grunt) {
           hostname: 'localhost',
           port: 5455
         },
-        files: ['src/*.js'],
+        files: ['src/**/*.js'],
         tasks: ['build'],
       }
     },
