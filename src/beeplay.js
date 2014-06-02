@@ -8,7 +8,7 @@ window.beeplay = function (option) {
   beeplay.prototype.play    = require('./modules/play');
   beeplay.prototype.start   = require('./modules/start');
   beeplay.prototype.put     = require('./modules/put');
-  beeplay.prototype.json    = require('./modules/json');
+  beeplay.prototype.toJSON  = require('./modules/toJSON');
 
   return new beeplay(option);
 };
