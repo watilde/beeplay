@@ -9,12 +9,12 @@ window.beeplay = function (option) {
   beeplay.prototype.play    = require('./modules/play');
   beeplay.prototype.start   = require('./modules/start');
   beeplay.prototype.put     = require('./modules/put');
-  beeplay.prototype.json    = require('./modules/json');
+  beeplay.prototype.toJSON  = require('./modules/toJSON');
 
   return new beeplay(option);
 };
 
-},{"./modules/isArray":2,"./modules/json":3,"./modules/main":4,"./modules/nn":5,"./modules/play":6,"./modules/pn":7,"./modules/put":8,"./modules/start":9}],2:[function(require,module,exports){
+},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/play":5,"./modules/pn":6,"./modules/put":7,"./modules/start":8,"./modules/toJSON":9}],2:[function(require,module,exports){
 module.exports = function (vArg) {
   if(!Array.isArray) {
     return Object.prototype.toString.call(vArg) === '[object Array]';
@@ -23,19 +23,6 @@ module.exports = function (vArg) {
 };
 
 },{}],3:[function(require,module,exports){
-module.exports = function () {
-  var song = {
-    key: this.key,
-    bpm: this.bpm,
-    frequency: this.frequency,
-    time: this.time,
-    notes: JSON.stringify(this.stack)
-  };
-
-  return JSON.stringify(song);
-};
-
-},{}],4:[function(require,module,exports){
 // constructor
 module.exports = function (option) {
   option = (typeof option === 'object') ? option : {};
@@ -63,7 +50,7 @@ module.exports = function (option) {
   return this;
 };
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 // Get Note Number
 module.exports = function (nn) {
   var keys = ['c', 'c#', 'd', 'd#', 'e',
@@ -74,7 +61,7 @@ module.exports = function (nn) {
   return keys.indexOf(note) + 12 * number;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports = function (notes, length) {
   notes = this.isArray(notes) ? notes : [notes];
   this.put(notes, length);
@@ -82,7 +69,7 @@ module.exports = function (notes, length) {
   return this;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 // Parse Note Number to freq
 module.exports = function (note) {
     if (note === null) { return -1; }
@@ -100,7 +87,7 @@ module.exports = function (note) {
     return freq;
   };
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = function (notes, length) {
   this.stack.push({
     notes: notes,
@@ -108,7 +95,7 @@ module.exports = function (notes, length) {
   });
 };
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = function (notes, length) {
   var context = this.context;
   var sampleRate = this.sampleRate;
@@ -129,6 +116,19 @@ module.exports = function (notes, length) {
   });
   this.currentTime += 60 / bpm * length;
   return this.time;
+};
+
+},{}],9:[function(require,module,exports){
+module.exports = function () {
+  var song = {
+    key: this.key,
+    bpm: this.bpm,
+    frequency: this.frequency,
+    time: this.time,
+    notes: JSON.stringify(this.stack)
+  };
+
+  return JSON.stringify(song);
 };
 
 },{}]},{},[1,2,3,4,5,6,7,8,9])
