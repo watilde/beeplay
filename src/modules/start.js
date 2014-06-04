@@ -14,8 +14,8 @@ module.exports = function (notes, length) {
     var src = context.createBufferSource();
     src.buffer = buf;
     src.connect(context.destination);
-    src.start(that.time);
+    src.start(that.currentTime);
   });
-  this.time += 60 / bpm * length;
+  this.currentTime += 60 / bpm * length;
   return this.time;
 };

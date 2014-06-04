@@ -1,12 +1,16 @@
 // constructor
 module.exports = function (option) {
   option = (typeof option === 'object') ? option : {};
+  // Song object meta info {{{
   this.bpm = option.bpm || 120;
   this.sampleRate = option.sampleRate || 44100;
-  this.time = 0;
+  this.key = option.key || 'C';
+  this.time = option.time || '4/4';
+  // }}}
 
+  this.stack = [];
+  this.currentTime = 0;
   try {
-    // Fix up for prefixing
     var AudioContext = window.AudioContext ||
       window.webkitAudioContext ||
       window.mozAudioContext ||
@@ -18,6 +22,5 @@ module.exports = function (option) {
   } catch(e) {
     console.error(e.message);
   }
-
   return this;
 };

@@ -8,11 +8,13 @@ window.beeplay = function (option) {
   beeplay.prototype.pn      = require('./modules/pn');
   beeplay.prototype.play    = require('./modules/play');
   beeplay.prototype.start   = require('./modules/start');
+  beeplay.prototype.put     = require('./modules/put');
+  beeplay.prototype.toJSON  = require('./modules/toJSON');
 
   return new beeplay(option);
 };
 
-},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/play":5,"./modules/pn":6,"./modules/start":7}],2:[function(require,module,exports){
+},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/play":5,"./modules/pn":6,"./modules/put":7,"./modules/start":8,"./modules/toJSON":9}],2:[function(require,module,exports){
 module.exports = function (vArg) {
   if(!Array.isArray) {
     return Object.prototype.toString.call(vArg) === '[object Array]';
@@ -24,12 +26,16 @@ module.exports = function (vArg) {
 // constructor
 module.exports = function (option) {
   option = (typeof option === 'object') ? option : {};
+  // Song object meta info {{{
   this.bpm = option.bpm || 120;
   this.sampleRate = option.sampleRate || 44100;
-  this.time = 0;
+  this.key = option.key || 'C';
+  this.time = option.time || '4/4';
+  // }}}
 
+  this.stack = [];
+  this.currentTime = 0;
   try {
-    // Fix up for prefixing
     var AudioContext = window.AudioContext ||
       window.webkitAudioContext ||
       window.mozAudioContext ||
@@ -41,7 +47,6 @@ module.exports = function (option) {
   } catch(e) {
     console.error(e.message);
   }
-
   return this;
 };
 
@@ -59,6 +64,7 @@ module.exports = function (nn) {
 },{}],5:[function(require,module,exports){
 module.exports = function (notes, length) {
   notes = this.isArray(notes) ? notes : [notes];
+  this.put(notes, length);
   this.start(notes, length);
   return this;
 };
@@ -83,6 +89,14 @@ module.exports = function (note) {
 
 },{}],7:[function(require,module,exports){
 module.exports = function (notes, length) {
+  this.stack.push({
+    notes: notes,
+    length: length
+  });
+};
+
+},{}],8:[function(require,module,exports){
+module.exports = function (notes, length) {
   var context = this.context;
   var sampleRate = this.sampleRate;
   var bpm = this.bpm;
@@ -98,10 +112,23 @@ module.exports = function (notes, length) {
     var src = context.createBufferSource();
     src.buffer = buf;
     src.connect(context.destination);
-    src.start(that.time);
+    src.start(that.currentTime);
   });
-  this.time += 60 / bpm * length;
+  this.currentTime += 60 / bpm * length;
   return this.time;
 };
 
-},{}]},{},[1,2,3,4,5,6,7])
+},{}],9:[function(require,module,exports){
+module.exports = function () {
+  var song = {
+    key: this.key,
+    bpm: this.bpm,
+    frequency: this.frequency,
+    time: this.time,
+    notes: JSON.stringify(this.stack)
+  };
+
+  return JSON.stringify(song);
+};
+
+},{}]},{},[1,2,3,4,5,6,7,8,9])
