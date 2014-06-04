@@ -1,6 +1,7 @@
-module.exports = function (notes, length) {
+module.exports = function (notes, length, dynamics) {
   this.stack.push({
     notes: notes,
-    length: length
+    length: length,
+    dynamics: dynamics
   });
 };

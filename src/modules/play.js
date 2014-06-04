@@ -1,6 +1,7 @@
-module.exports = function (notes, length) {
+module.exports = function (notes, length, dynamics) {
   notes = this.isArray(notes) ? notes : [notes];
-  this.put(notes, length);
-  this.start(notes, length);
+  dynamics = dynamics || 'm';
+  this.put(notes, length, dynamics);
+  this.start(notes, length, dynamics);
   return this;
 };
