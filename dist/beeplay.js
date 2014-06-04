@@ -5,6 +5,7 @@ window.beeplay = function (option) {
   var beeplay               = require('./modules/main');
   beeplay.prototype.isArray = require('./modules/isArray');
   beeplay.prototype.nn      = require('./modules/nn');
+  beeplay.prototype.pd      = require('./modules/pd');
   beeplay.prototype.pn      = require('./modules/pn');
   beeplay.prototype.play    = require('./modules/play');
   beeplay.prototype.start   = require('./modules/start');
@@ -14,7 +15,7 @@ window.beeplay = function (option) {
   return new beeplay(option);
 };
 
-},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/play":5,"./modules/pn":6,"./modules/put":7,"./modules/start":8,"./modules/toJSON":9}],2:[function(require,module,exports){
+},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/pd":5,"./modules/play":6,"./modules/pn":7,"./modules/put":8,"./modules/start":9,"./modules/toJSON":10}],2:[function(require,module,exports){
 module.exports = function (vArg) {
   if(!Array.isArray) {
     return Object.prototype.toString.call(vArg) === '[object Array]';
@@ -31,6 +32,7 @@ module.exports = function (option) {
   this.sampleRate = option.sampleRate || 44100;
   this.key = option.key || 'C';
   this.time = option.time || '4/4';
+  this.volume = option.volume || 1;
   // }}}
 
   this.stack = [];
@@ -62,6 +64,17 @@ module.exports = function (nn) {
 };
 
 },{}],5:[function(require,module,exports){
+// Parse dynamics to gain value
+module.exports = function (dynamics) {
+  var nodeUnit = this.volume / 7;
+  var range = ['pp', 'p', 'mp', 'm', 'mf', 'f', 'ff'];
+  if (!dynamics) dynamics = 'm';
+  dynamics = dynamics.toLowerCase();
+  var gain = (range.indexOf(dynamics) + 1) * nodeUnit;
+  return gain;
+};
+
+},{}],6:[function(require,module,exports){
 module.exports = function (notes, length) {
   notes = this.isArray(notes) ? notes : [notes];
   this.put(notes, length);
@@ -69,7 +82,7 @@ module.exports = function (notes, length) {
   return this;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // Parse Note Number to freq
 module.exports = function (note) {
     if (note === null) { return -1; }
@@ -87,7 +100,7 @@ module.exports = function (note) {
     return freq;
   };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = function (notes, length) {
   this.stack.push({
     notes: notes,
@@ -95,8 +108,8 @@ module.exports = function (notes, length) {
   });
 };
 
-},{}],8:[function(require,module,exports){
-module.exports = function (notes, length) {
+},{}],9:[function(require,module,exports){
+module.exports = function (notes, length, dynamics) {
   var context = this.context;
   var sampleRate = this.sampleRate;
   var bpm = this.bpm;
@@ -109,16 +122,20 @@ module.exports = function (notes, length) {
     for(var i = 0; i < 60 / bpm * length * sampleRate; i++) {
       data[i]=Math.sin( (2 * Math.PI) * nn * (i / sampleRate) );
     }
+    var gainNode = context.createGain();
+    gainNode.gain.value = that.pd(dynamics);
+    gainNode.connect(context.destination);
+
     var src = context.createBufferSource();
     src.buffer = buf;
-    src.connect(context.destination);
+    src.connect(gainNode);
     src.start(that.currentTime);
   });
   this.currentTime += 60 / bpm * length;
   return this.time;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = function () {
   var song = {
     key: this.key,
@@ -131,4 +148,4 @@ module.exports = function () {
   return JSON.stringify(song);
 };
 
-},{}]},{},[1,2,3,4,5,6,7,8,9])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10])
