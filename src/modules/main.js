@@ -6,6 +6,7 @@ module.exports = function (option) {
   this.sampleRate = option.sampleRate || 44100;
   this.key = option.key || 'C';
   this.time = option.time || '4/4';
+  this.volume = option.volume || 1;
   // }}}
 
   this.stack = [];
