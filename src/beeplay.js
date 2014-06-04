@@ -4,6 +4,7 @@ window.beeplay = function (option) {
   var beeplay               = require('./modules/main');
   beeplay.prototype.isArray = require('./modules/isArray');
   beeplay.prototype.nn      = require('./modules/nn');
+  beeplay.prototype.pd      = require('./modules/pd');
   beeplay.prototype.pn      = require('./modules/pn');
   beeplay.prototype.play    = require('./modules/play');
   beeplay.prototype.start   = require('./modules/start');
