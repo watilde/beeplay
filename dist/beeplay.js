@@ -68,17 +68,17 @@ module.exports = function (nn) {
 module.exports = function (dynamics) {
   var nodeUnit = this.volume / 7;
   var range = ['pp', 'p', 'mp', 'm', 'mf', 'f', 'ff'];
-  if (!dynamics) dynamics = 'm';
   dynamics = dynamics.toLowerCase();
   var gain = (range.indexOf(dynamics) + 1) * nodeUnit;
   return gain;
 };
 
 },{}],6:[function(require,module,exports){
-module.exports = function (notes, length) {
+module.exports = function (notes, length, dynamics) {
   notes = this.isArray(notes) ? notes : [notes];
-  this.put(notes, length);
-  this.start(notes, length);
+  dynamics = dynamics || 'm';
+  this.put(notes, length, dynamics);
+  this.start(notes, length, dynamics);
   return this;
 };
 
@@ -101,10 +101,11 @@ module.exports = function (note) {
   };
 
 },{}],8:[function(require,module,exports){
-module.exports = function (notes, length) {
+module.exports = function (notes, length, dynamics) {
   this.stack.push({
     notes: notes,
-    length: length
+    length: length,
+    dynamics: dynamics
   });
 };
 
