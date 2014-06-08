@@ -1,5 +1,4 @@
 $(function(){
-  window.prettyPrint();
   setPlay();
   $('#code').css('opacity', '0.2');
   var singleton = true;
@@ -13,6 +12,7 @@ $(function(){
       });
     }
   });
+  window.prettyPrint();
 });
 $(window).resize(setPlay);
 
