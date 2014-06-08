@@ -3,7 +3,7 @@
   width: 100%;
   height: 200px;
   overflow: scroll;
-  text-shadow: 0;
+  text-shadow: none;
 }
 
 #play {
