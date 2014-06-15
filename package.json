@@ -1,16 +1,17 @@
 {
   "name": "browser",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.5",
+  "description": "Write A Song In JavaScript",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require power_assert.js test/*.js"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^4.1.6",
     "chest": "*",
+    "espower-loader": "^0.7.1",
     "grunt": "^0.4.4",
     "grunt-browserify": "^2.1.0",
     "grunt-contrib-connect": "^0.7.1",
@@ -20,6 +21,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-gh-pages": "^0.9.1",
     "grunt-open": "^0.2.3",
-    "load-grunt-tasks": "^0.4.0"
+    "load-grunt-tasks": "^0.4.0",
+    "mocha": "^1.20.1",
+    "power-assert": "^0.7.2"
   }
 }

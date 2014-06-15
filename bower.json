@@ -1,7 +1,7 @@
 {
   "name": "beeplay",
-  "version": "0.0.4",
-  "description": "Write A Song On JavaScript",
+  "version": "0.0.5",
+  "description": "Write A Song In JavaScript",
   "homepage": "https://github.com/watilde/beeplay",
   "authors": [
     "Daijiro Wachi <daijiro.wachi@gmail.com>"
