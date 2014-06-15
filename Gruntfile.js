@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     browserify: {
       all: {
         files: {
-          'dist/beeplay.js': 'src/**/*.js',
+          'dist/beeplay.js': 'src/beeplay.js',
         }
       }
     },
