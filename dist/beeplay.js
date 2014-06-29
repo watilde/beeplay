@@ -4,6 +4,7 @@ window.beeplay = function (option) {
 
   var beeplay               = require('./modules/main');
   beeplay.prototype.isArray = require('./modules/isArray');
+  beeplay.prototype.watch   = require('./modules/watch');
   beeplay.prototype.nn      = require('./modules/nn');
   beeplay.prototype.pd      = require('./modules/pd');
   beeplay.prototype.pn      = require('./modules/pn');
@@ -15,7 +16,7 @@ window.beeplay = function (option) {
   return new beeplay(option);
 };
 
-},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/pd":5,"./modules/play":6,"./modules/pn":7,"./modules/put":8,"./modules/start":9,"./modules/toJSON":10}],2:[function(require,module,exports){
+},{"./modules/isArray":2,"./modules/main":3,"./modules/nn":4,"./modules/pd":5,"./modules/play":6,"./modules/pn":7,"./modules/put":8,"./modules/start":9,"./modules/toJSON":10,"./modules/watch":11}],2:[function(require,module,exports){
 module.exports = function (vArg) {
   if(!Array.isArray) {
     return Object.prototype.toString.call(vArg) === '[object Array]';
@@ -37,6 +38,8 @@ module.exports = function (option) {
 
   this.stack = [];
   this.currentTime = 0;
+  this.trackId = 0;
+  this.track = option.track || false;
   try {
     var AudioContext = window.AudioContext ||
       window.webkitAudioContext ||
@@ -79,6 +82,7 @@ module.exports = function (notes, length, dynamics) {
   dynamics = dynamics || 'm';
   this.put(notes, length, dynamics);
   this.start(notes, length, dynamics);
+  this.watch();
   return this;
 };
 
@@ -149,4 +153,17 @@ module.exports = function () {
   return JSON.stringify(song);
 };
 
-},{}]},{},[1])
+},{}],11:[function(require,module,exports){
+module.exports = function() {
+  if(this.track && typeof this.track == 'function') {
+    var that = this;
+    setTimeout(function() {
+      var notes = that.stack[that.trackId].notes.toString().replace(/,/g, ' ') || 'null';
+      that.track(notes, that.trackId, that.stack)
+      that.trackId++;
+    }, that.currentTime * 1000);
+  } else {
+    this.watch = function(){};
+  }
+}
+},{}]},{},[1]);

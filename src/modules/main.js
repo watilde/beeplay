@@ -11,6 +11,8 @@ module.exports = function (option) {
 
   this.stack = [];
   this.currentTime = 0;
+  this.trackId = 0;
+  this.track = option.track || false;
   try {
     var AudioContext = window.AudioContext ||
       window.webkitAudioContext ||
