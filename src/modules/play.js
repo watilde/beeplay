@@ -3,5 +3,6 @@ module.exports = function (notes, length, dynamics) {
   dynamics = dynamics || 'm';
   this.put(notes, length, dynamics);
   this.start(notes, length, dynamics);
+  this.watch();
   return this;
 };
