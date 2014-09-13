@@ -66,7 +66,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', ['browserify', 'uglify', 'copy']);
-  grunt.registerTask('server', ['connect', 'open']);
+  grunt.registerTask('server', ['connect', 'open', 'watch']);
   grunt.registerTask('deploy', ['build', 'gh-pages']);
 
   // Main task
