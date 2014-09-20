@@ -63,6 +63,7 @@ module.exports = function (nn) {
   var index = (nn.indexOf('#') !== -1) ? 2 : 1;
   var note = nn.substring(0, index).toLowerCase();
   var number = Number(nn.substring(index)) + 1;
+  console.log(keys.indexOf(note));
   return keys.indexOf(note) + 12 * number;
 };
 
@@ -89,20 +90,20 @@ module.exports = function (notes, length, dynamics) {
 },{}],7:[function(require,module,exports){
 // Parse Note Number to freq
 module.exports = function (note) {
-    if (note === null) { return -1; }
-    var nn = this.nn(note);
-    var freq = this.sampleRate / 100;
-    var diff = nn - 69;
-    var i = Math.abs(diff);
-    if (nn === 69) {
-      return freq;
-    } else if (diff > 0) {
-      while(i--) freq = freq * Math.pow(2, 1 / 12);
-    } else {
-      while(i--) freq = freq / Math.pow(2, 1 / 12);
-    }
+  if (note === null) { return -1; }
+  var nn = this.nn(note);
+  var freq = this.sampleRate / 100;
+  var diff = nn - 69;
+  var i = Math.abs(diff);
+  if (nn === 69) {
     return freq;
-  };
+  } else if (diff > 0) {
+    while(i--) freq = freq * Math.pow(2, 1 / 12);
+  } else {
+    while(i--) freq = freq / Math.pow(2, 1 / 12);
+  }
+  return freq;
+};
 
 },{}],8:[function(require,module,exports){
 module.exports = function (notes, length, dynamics) {
@@ -159,11 +160,11 @@ module.exports = function() {
     var that = this;
     setTimeout(function() {
       var notes = that.stack[that.trackId].notes.toString().replace(/,/g, ' ') || 'null';
-      that.track(notes, that.trackId, that.stack)
+      that.track(notes, that.trackId, that.stack);
       that.trackId++;
     }, that.currentTime * 1000);
   } else {
     this.watch = function(){};
   }
 }
-},{}]},{},[1]);
+},{}]},{},[1])

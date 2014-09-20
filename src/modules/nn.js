@@ -5,5 +5,6 @@ module.exports = function (nn) {
   var index = (nn.indexOf('#') !== -1) ? 2 : 1;
   var note = nn.substring(0, index).toLowerCase();
   var number = Number(nn.substring(index)) + 1;
+  console.log(keys.indexOf(note));
   return keys.indexOf(note) + 12 * number;
 };
