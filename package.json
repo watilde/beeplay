@@ -4,6 +4,10 @@
   "description": "Write A Song In JavaScript",
   "main": "Gruntfile.js",
   "scripts": {
+    "dev": "grunt",
+    "start": "grunt server",
+    "deploy": "grunt deploy",
+    "build": "grunt build",
     "test": "mocha --require power_assert.js test/*.js"
   },
   "author": "",
@@ -14,6 +18,7 @@
     "espower-loader": "^0.7.1",
     "grunt": "^0.4.4",
     "grunt-browserify": "^2.1.0",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-connect": "^0.7.1",
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-jshint": "^0.10.0",
