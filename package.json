@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "grunt",
     "start": "grunt server",
+    "deploy": "grunt deploy",
+    "build": "grunt build",
     "test": "mocha --require power_assert.js test/*.js"
   },
   "author": "",
