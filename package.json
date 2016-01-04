@@ -4,6 +4,8 @@
   "description": "Write A Song In JavaScript",
   "main": "Gruntfile.js",
   "scripts": {
+    "dev": "grunt",
+    "start": "grunt server",
     "test": "mocha --require power_assert.js test/*.js"
   },
   "author": "",
