@@ -1,5 +1,5 @@
 {
-  "name": "browser",
+  "name": "beeplay",
   "version": "0.0.5",
   "description": "Write A Song In JavaScript",
   "main": "Gruntfile.js",
