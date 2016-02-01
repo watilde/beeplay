@@ -1,6 +1,6 @@
 'use strict'
 var test = require('tap').test
-var isArray = require('../src/modules/isArray')
+var isArray = require('../lib/modules/isArray')
 
 test('isArray', function(t) {
   t.ok(isArray([]))
