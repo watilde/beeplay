@@ -4,30 +4,17 @@
   "description": "Write A Song In JavaScript",
   "main": "Gruntfile.js",
   "scripts": {
-    "dev": "grunt",
-    "start": "grunt server",
-    "deploy": "grunt deploy",
-    "build": "grunt build",
-    "test": "mocha --require power_assert.js test/*.js"
+    "build": "npm run browserify && npm run uglify",
+    "postbuild": "cp dist/* docs/js",
+    "browserify": "browserify lib/index.js -o dist/beeplay.js",
+    "uglify": "uglify -s dist/beeplay.js -o dist/beeplay.min.js",
+    "test": "tap test/*.js"
   },
-  "author": "",
+  "author": "Daijiro Wachi",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^4.1.6",
-    "chest": "*",
-    "espower-loader": "^0.7.1",
-    "grunt": "^0.4.4",
-    "grunt-browserify": "^2.1.0",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-connect": "^0.7.1",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-gh-pages": "^0.9.1",
-    "grunt-open": "^0.2.3",
-    "load-grunt-tasks": "^0.4.0",
-    "mocha": "^1.20.1",
-    "power-assert": "^0.7.2"
+    "tap": "^5.4.2",
+    "uglify": "^0.1.5"
   }
 }

@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 window.beeplay = function (option) {
   'use strict';
 
@@ -118,24 +118,23 @@ module.exports = function (notes, length, dynamics) {
   var context = this.context;
   var sampleRate = this.sampleRate;
   var bpm = this.bpm;
-  var that = this;
   notes.forEach(function(note) {
     var buf = context.createBuffer(1, sampleRate, sampleRate);
     var data = buf.getChannelData(0);
-    var nn = that.pn(note);
+    var nn = this.pn(note);
     if (nn === -1) { return; }
     for(var i = 0; i < 60 / bpm * length * sampleRate; i++) {
       data[i]=Math.sin( (2 * Math.PI) * nn * (i / sampleRate) );
     }
     var gainNode = context.createGain();
-    gainNode.gain.value = that.pd(dynamics);
+    gainNode.gain.value = this.pd(dynamics);
     gainNode.connect(context.destination);
 
     var src = context.createBufferSource();
     src.buffer = buf;
     src.connect(gainNode);
-    src.start(that.currentTime);
-  });
+    src.start(this.currentTime);
+  }, this);
   this.currentTime += 60 / bpm * length;
   return this.time;
 };
@@ -156,14 +155,14 @@ module.exports = function () {
 },{}],11:[function(require,module,exports){
 module.exports = function() {
   if(this.track && typeof this.track == 'function') {
-    var that = this;
     setTimeout(function() {
-      var notes = that.stack[that.trackId].notes.toString().replace(/,/g, ' ') || 'null';
-      that.track(notes, that.trackId, that.stack)
-      that.trackId++;
-    }, that.currentTime * 1000);
+      var notes = this.stack[this.trackId].notes.toString().replace(/,/g, ' ') || 'null';
+      this.track(notes, this.trackId, this.stack);
+      this.trackId++;
+    }.bind(this), this.currentTime * 1000);
   } else {
     this.watch = function(){};
   }
-}
+};
+
 },{}]},{},[1]);
