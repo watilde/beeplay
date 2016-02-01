@@ -4,10 +4,11 @@
   "description": "Write A Song In JavaScript",
   "main": "Gruntfile.js",
   "scripts": {
-    "build": "browserify lib/index.js -o src/beeplay.js",
+    "build": "browserify lib/index.js -o dist/beeplay.js",
+    "postbuild": "uglify dist/beeplay.js -o dist/beeplay.min.jso",
     "test": "tap test/*.js"
   },
-  "author": "",
+  "author": "Daijiro Wachi",
   "license": "MIT",
   "devDependencies": {
     "browserify": "^4.1.6",
