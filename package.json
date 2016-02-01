@@ -5,7 +5,7 @@
   "main": "Gruntfile.js",
   "scripts": {
     "build": "browserify lib/index.js -o dist/beeplay.js",
-    "postbuild": "uglify dist/beeplay.js -o dist/beeplay.min.jso",
+    "postbuild": "uglify -s dist/beeplay.js -o dist/beeplay.min.js",
     "test": "tap test/*.js"
   },
   "author": "Daijiro Wachi",
