@@ -1,15 +1,9 @@
-'use strict';
-var assert = require('power-assert');
-var nn = require('../src/modules/nn');
+'use strict'
+var test = require('tap').test
+var nn = require('../src/modules/nn')
 
-describe('Get Note Number', function() {
-  it('C4 is 60', function() {
-    var note = nn('C4');
-    assert.equal(note, 60);
-  });
-
-  it('C#4 is 61', function() {
-    var note = nn('C#4');
-    assert.equal(note, 61);
-  });
-});
+test('Get Note Number', function(t) {
+  t.equal(nn('C4'), 60)
+  t.equal(nn('C#4'), 61)
+  t.end()
+})
