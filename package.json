@@ -1,6 +1,6 @@
 {
   "name": "beeplay",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Write A Song In JavaScript",
   "main": "lib/beeplay.js",
   "repository": {
