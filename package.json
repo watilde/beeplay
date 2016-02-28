@@ -2,7 +2,11 @@
   "name": "beeplay",
   "version": "0.0.5",
   "description": "Write A Song In JavaScript",
-  "main": "Gruntfile.js",
+  "main": "lib/beeplay.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/watilde/beeplay.git"
+  },
   "scripts": {
     "build": "npm run browserify && npm run uglify",
     "postbuild": "cp dist/* docs/js",
@@ -13,8 +17,14 @@
   "author": "Daijiro Wachi",
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^4.1.6",
-    "tap": "^5.4.2",
-    "uglify": "^0.1.5"
+    "browserify": "^13.0.0",
+    "browserify-shim": "^3.8.12",
+    "chest": "*",
+    "coffeeify": "^2.0.1",
+    "tap": "^5.4.2"
+  },
+  "dependencies": {
+    "speaker": "^0.2.6",
+    "web-audio-api": "^0.2.2"
   }
 }
