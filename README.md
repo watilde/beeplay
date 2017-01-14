@@ -6,14 +6,14 @@ Write A Song In JavaScript
 ## Install
 npm
 
-```
-$ npm install beeplay
+```sh
+npm install beeplay
 ```
 
 bower
 
-```
-$bower install beeplay
+```sh
+bower install beeplay
 ```
 
 ## Usage
