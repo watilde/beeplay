@@ -18,7 +18,7 @@ bower install beeplay
 
 ## Usage
 ```js
-var beeplay = require('../lib/index')
+var beeplay = require('beeplay')
 
 beeplay()
   .play(null, 2)
